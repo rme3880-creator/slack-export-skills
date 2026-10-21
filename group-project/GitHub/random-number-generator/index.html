@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Number Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Random Number Generator</h1>
+
+    <div class="range-inputs">
+      <label>
+        Min
+        <input type="text" inputmode="decimal" id="minInput" value="1" autocomplete="off">
+      </label>
+      <label>
+        Max
+        <input type="text" inputmode="decimal" id="maxInput" value="10" autocomplete="off">
+      </label>
+    </div>
+
+    <button id="generateBtn">Generate</button>
+
+    <div class="output" id="output">
+      <p class="hint">Enter a range and hit generate</p>
+    </div>
+
+    <div class="siren-overlay" id="sirenOverlay" hidden>
+      <div class="siren">🚨</div>
+      <p class="siren-text">BIG SHOT HERE WANTS TO DO THINGS<br>THIS WEBSITE ISN'T BUILT FOR</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

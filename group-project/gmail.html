@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gmail — Massimo Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .live-demo {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 32px 100px;
+    border-top: 1px solid var(--border);
+  }
+  .live-demo__intro h2 {
+    font-size: clamp(22px, 3vw, 30px);
+    color: var(--white);
+    margin: 40px 0 8px;
+  }
+  .live-demo__intro p {
+    color: var(--text-dim);
+    font-size: 14px;
+    max-width: 760px;
+    line-height: 1.6;
+    margin: 0 0 28px;
+  }
+  .live-demo__intro code {
+    font-family: var(--mono);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  .live-demo__split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) {
+    .live-demo__split { grid-template-columns: 1fr; }
+  }
+  .live-demo__pane {
+    display: flex;
+    flex-direction: column;
+    min-height: 560px;
+  }
+  .live-demo__pane-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .live-demo__live-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--sans);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .live-demo__card-backdrop {
+    flex: 1;
+    background: #0c0e13;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 32px 20px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+  }
+  .live-demo__card {
+    background: #ffffff;
+    color: #000000;
+    border-radius: 28px;
+    padding: 36px 40px;
+    width: 100%;
+    max-width: 620px;
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', serif;
+    align-self: flex-start;
+  }
+  .live-demo__textarea {
+    flex: 1;
+    width: 100%;
+    resize: vertical;
+    min-height: 420px;
+    background: #0c0e13;
+    color: #d9ffe4;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    box-sizing: border-box;
+  }
+  .live-demo__textarea:focus {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+  }
+  .live-demo__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .live-demo__btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 9px 20px;
+    cursor: pointer;
+    transition: border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .live-demo__btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .live-demo__btn--primary {
+    background: var(--green);
+    color: #0c1710;
+    border-color: var(--green);
+  }
+  .live-demo__btn--primary:hover {
+    background: var(--green-dim);
+    color: #0c1710;
+  }
+  .live-demo__status {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .live-demo__error {
+    color: #ff8686;
+    font-family: var(--mono);
+    font-size: 13px;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav__brand" href="index.html">massimo // dashboard</a>
+  <div class="topnav__links">
+    <a class="topnav__link" href="index.html">Home</a>
+    <a class="topnav__link" href="github.html">GitHub</a>
+    <a class="topnav__link is-active" href="gmail.html">Gmail</a>
+    <a class="topnav__link" href="calendar.html">Google Calendar</a>
+    <a class="topnav__link" href="notion.html">Notion</a>
+  </div>
+</nav>
+
+<header class="category-header">
+  <img class="category-header__icon" src="assets/img/gmail-icon.png" alt="">
+  <h1 class="category-header__title">Gmail</h1>
+  <p class="category-header__count" id="projectCount"></p>
+</header>
+
+<section class="project-grid" id="grid"></section>
+
+<script src="assets/js/data-gmail.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  (function () {
+    const projects = window.GMAIL_PROJECTS || [];
+    document.getElementById("projectCount").textContent =
+      projects.length + " email" + (projects.length === 1 ? "" : "s");
+    window.SiteGallery.renderGrid(document.getElementById("grid"), projects, {
+      landscape: false,
+      virtualW: 480,
+      virtualH: 900,
+    });
+  })();
+</script>
+
+<section class="live-demo" id="liveDemo">
+  <div class="live-demo__intro">
+    <h2>Live Translation Demo</h2>
+    <p>
+      This is the same translation the <code>download-email</code> skill performs: your document's
+      raw text gets tagged with a small set of markers (<code>&lt;From&gt;</code>, <code>&lt;Subject&gt;</code>,
+      the font/color/link/table markers, etc. — see <code>emailDownloadTemplate.rtf</code>) and saved as an
+      exportable file. Edit the tagged source on the right and watch it translate into the rendered email
+      on the left, live or on demand.
+    </p>
+  </div>
+  <div class="live-demo__split">
+    <div class="live-demo__pane live-demo__pane--output">
+      <div class="live-demo__pane-label">Output</div>
+      <div class="live-demo__card-backdrop">
+        <div class="live-demo__card" id="liveDemoCard"></div>
+      </div>
+    </div>
+    <div class="live-demo__pane live-demo__pane--editor">
+      <div class="live-demo__pane-label">
+        Editable source
+        <label class="live-demo__live-toggle">
+          <input type="checkbox" id="liveDemoLiveToggle" checked>
+          Live update
+        </label>
+      </div>
+      <textarea id="liveDemoSource" class="live-demo__textarea" spellcheck="false" autocomplete="off"></textarea>
+      <div class="live-demo__controls">
+        <button type="button" id="liveDemoPublish" class="live-demo__btn live-demo__btn--primary">Publish</button>
+        <button type="button" id="liveDemoReset" class="live-demo__btn">Reset to example</button>
+        <span class="live-demo__status" id="liveDemoStatus"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    "use strict";
+
+    /* ---------- the starting document, in the download-email tagging syntax ---------- */
+    const EXAMPLE_SOURCE = `<From><rme3880@gmail.com>//
+<To><mbtester321@gmail.com>//
+<CC>//
+<BCC>//
+<DateAndTime><2026-10-14><19:18:38><EDT>//
+<Subject><Offer of Employment: Senior Product Manager at Nexus Innovations>//
+<body><ⓣ<<Helvetica.ttf><12pts>Ⓒ<#000000> Dear Massimo,
+
+On behalf of Nexus Innovations, I am absolutely thrilled to offer you the position of Senior Product Manager. We were incredibly impressed with your background, your experience, and the perspective you brought to our conversations. We truly believe your skills will make a significant impact on our core product team.
+
+Below are the formal terms of our offer:<table><row><cell>TERM</cell><cell>DETAILS</cell></row><row><cell>Position</cell><cell>Senior Product Manager</cell></row><row><cell>Base Salary</cell><cell>$145,000 per year, paid semi-monthly</cell></row><row><cell>Performance Bonus</cell><cell>Up to 15% annually, based on company and individual milestones</cell></row><row><cell>Equity</cell><cell>5,000 Incentive Stock Options (ISOs), vesting over 4 years</cell></row><row><cell>Start Date</cell><cell>Monday, October 19, 2026</cell></row><row><cell>Location</cell><cell>Remote (with up to 4 trips per year to our San Francisco HQ)</cell></row><row><cell>Benefits</cell><cell>Comprehensive health, vision, and dental; 401(k) with 5% match; unlimited PTO</cell></row></table> To accept this offer, please sign and return this letter by Friday, October 2nd.
+
+We are incredibly excited about the prospect of you joining us. If you have any questions at all, please don't hesitate to reach out directly.
+
+Welcome to the team!
+
+Best regards,
+
+Sarah Jenkins
+Director of Talent Acquisition
+Nexus Innovations>//
+<Attachments>`;
+
+    /* ---------- marker syntax (mirrors show-email's build_email_html.py) ----------
+       ⓣ<<FontName.ttf><Npts>   opens a font/size section
+       Ⓒ<#RRGGBB>               sets the text color for what follows
+       ⓕ<filename.ext>          an inline file at this position in the body
+       Ⓛ<[label]https://url>    a link (label optional — Ⓛ<https://url> alone is fine)
+       \\ql \\qc \\qr            left/center/right align what follows
+       <table><row><cell>..</cell></row></table>   a table, read row by row
+    */
+    const SPECIAL_RE = /ⓣ<<([^>]*)\.ttf><(\d+)pts>|Ⓒ<(#[0-9A-Fa-f]{6})>|ⓕ<([^>]*)>|Ⓛ<(\[[^\]]*\])?([^>]*)>|\\q([lcr])|<table>([\s\S]*?)<\/table>|(>)/g;
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function cssFontFamily(name) {
+      const lowered = (name || "").toLowerCase();
+      let fallback = "sans-serif";
+      if (/courier|mono|consolas/.test(lowered)) fallback = "monospace";
+      else if (/times|georgia|serif|garamond|cambria/.test(lowered)) fallback = "serif";
+      return "'" + name + "', " + fallback;
+    }
+
+    function extractField(head, name) {
+      const re = new RegExp("<" + name + ">([\\s\\S]*?)\\/\\/");
+      const m = head.match(re);
+      return m ? m[1] : "";
+    }
+
+    function addrs(head, name) {
+      const raw = extractField(head, name);
+      const out = [];
+      const re = /<([^<>]*)>/g;
+      let m;
+      while ((m = re.exec(raw))) {
+        if (m[1]) out.push(m[1]);
+      }
+      return out;
+    }
+
+    function parseTable(inner) {
+      const rows = [];
+      const rowRe = /<row>([\s\S]*?)<\/row>/g;
+      let rm;
+      while ((rm = rowRe.exec(inner))) {
+        const cells = [];
+        const cellRe = /<cell>([\s\S]*?)<\/cell>/g;
+        let cm;
+        while ((cm = cellRe.exec(rm[1]))) cells.push(cm[1]);
+        rows.push(cells);
+      }
+      return rows;
+    }
+
+    function parseBody(bodyRaw) {
+      const blocks = [];
+      let align = "left", font = "Helvetica", size = 12, color = "#000000";
+      let pos = 0, m;
+      SPECIAL_RE.lastIndex = 0;
+      while ((m = SPECIAL_RE.exec(bodyRaw))) {
+        const gap = bodyRaw.slice(pos, m.index);
+        if (gap) blocks.push({ type: "text", align, font, size, color, text: gap });
+
+        if (m[1] !== undefined) {
+          font = m[1];
+          size = parseInt(m[2], 10);
+        } else if (m[3] !== undefined) {
+          color = m[3].toUpperCase();
+        } else if (m[4] !== undefined) {
+          blocks.push({ type: "inline_file", filename: m[4] });
+        } else if (m[6] !== undefined) {
+          const bracket = m[5];
+          const text = bracket ? bracket.slice(1, -1) : null;
+          blocks.push({ type: "link", text, url: m[6], font, size, color });
+        } else if (m[7] !== undefined) {
+          align = { l: "left", c: "center", r: "right" }[m[7]];
+        } else if (m[8] !== undefined) {
+          blocks.push({ type: "table", rows: parseTable(m[8]) });
+        }
+        // m[9] (a bare ">") is a section-close marker — no visual effect.
+
+        pos = SPECIAL_RE.lastIndex;
+      }
+      const tail = bodyRaw.slice(pos);
+      if (tail) blocks.push({ type: "text", align, font, size, color, text: tail });
+      return blocks;
+    }
+
+    function paragraphsHtml(text, align, font, size, color) {
+      const alignCss = { left: "justify", center: "center", right: "right" }[align] || "justify";
+      const fontCss = cssFontFamily(font);
+      const colorCss = color || "#000000";
+      const chunks = text.split(/\n{2,}/);
+      const bulletRe = /^[•‣◦⁃∙]\s*/;
+      let out = "", bulletItems = [];
+
+      function flushBullets() {
+        if (!bulletItems.length) return;
+        const items = bulletItems
+          .map((item) => "      <li>" + escapeHtml(item).replace(/\n/g, "<br>\n") + "</li>\n")
+          .join("");
+        out +=
+          '    <ul style="font-family:' + fontCss + "; font-size:" + size + "pt; color:" + colorCss +
+          '; line-height:1.6; margin:0 0 20px 0; padding-left:1.4em;">\n' + items + "    </ul>\n";
+        bulletItems = [];
+      }
+
+      chunks.forEach((raw) => {
+        const chunk = raw.replace(/^\n+|\n+$/g, "");
+        if (chunk.trim() === "") return;
+        const stripped = chunk.replace(/^\s+/, "");
+        const bm = stripped.match(bulletRe);
+        if (bm) {
+          bulletItems.push(stripped.slice(bm[0].length));
+          return;
+        }
+        flushBullets();
+        const inner = escapeHtml(chunk).replace(/\n/g, "<br>\n");
+        out +=
+          '    <p style="font-family:' + fontCss + "; font-size:" + size + "pt; color:" + colorCss +
+          "; line-height:1.6; text-align:" + alignCss + '; margin:0 0 20px 0;">\n      ' + inner + "\n    </p>\n";
+      });
+      flushBullets();
+      return out;
+    }
+
+    function renderTable(rows) {
+      if (!rows.length) return "";
+      let body = "";
+      rows.forEach((row, i) => {
+        const tag = i === 0 ? "th" : "td";
+        const cells = row
+          .map(
+            (cell) =>
+              "<" + tag + ' style="border:1px solid #ddd; padding:8px 14px; text-align:left;' +
+              (tag === "th" ? " font-weight:bold; background:#f5f5f5;" : "") + '">' +
+              escapeHtml(cell).replace(/\n/g, "<br>") + "</" + tag + ">"
+          )
+          .join("");
+        body += "      <tr>" + cells + "</tr>\n";
+      });
+      return (
+        '    <table style="border-collapse:collapse; width:100%; margin:0 0 20px 0; font-size:16px;">\n' +
+        body + "    </table>\n"
+      );
+    }
+
+    function renderBody(blocks) {
+      let html = "";
+      blocks.forEach((b) => {
+        if (b.type === "text") {
+          html += paragraphsHtml(b.text, b.align, b.font, b.size, b.color);
+        } else if (b.type === "link") {
+          const label = b.text ? escapeHtml(b.text) : escapeHtml(b.url);
+          const fontCss = cssFontFamily(b.font);
+          html +=
+            '    <p style="font-family:' + fontCss + "; font-size:" + b.size +
+            'pt; line-height:1.6; margin:0 0 20px 0;"><a href="' + escapeHtml(b.url) +
+            '" target="_blank" rel="noopener" style="color:#1a73e8;">' + label + "</a></p>\n";
+        } else if (b.type === "table") {
+          html += renderTable(b.rows);
+        } else if (b.type === "inline_file") {
+          html +=
+            '    <div style="margin-bottom:24px;"><div style="width:64px; height:64px; border:1px solid #ddd; ' +
+            'border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:24px; ' +
+            'background:#f5f5f5;">🖼️</div><div style="font-size:12px; color:#888; margin-top:4px;">' +
+            escapeHtml(b.filename) + "</div></div>\n";
+        }
+      });
+      return html;
+    }
+
+    function renderAttachments(list) {
+      if (!list.length) return "";
+      const tiles = list
+        .map(
+          (name) =>
+            '<a href="#" onclick="return false;" style="text-align:left; text-decoration:none; color:inherit; ' +
+            'cursor:default;"><div style="width:56px; height:56px; border:1px solid #ddd; border-radius:8px; ' +
+            'display:flex; align-items:center; justify-content:center; font-size:22px; background:#f5f5f5;">📎</div>' +
+            '<div style="font-size:14px; margin-top:4px;">' + escapeHtml(name) + "</div></a>"
+        )
+        .join("\n");
+      return '    <div style="display:flex; gap:32px; flex-wrap:wrap; margin-top:8px;">\n' + tiles + "\n    </div>\n";
+    }
+
+    function formatDateTime(date, time, tz) {
+      try {
+        const [y, mo, d] = date.split("-").map(Number);
+        const [hh, mm] = time.split(":").map(Number);
+        const dt = new Date(y, mo - 1, d, hh, mm);
+        const months = ["January", "February", "March", "April", "May", "June", "July",
+          "August", "September", "October", "November", "December"];
+        const day = months[dt.getMonth()] + " " + dt.getDate();
+        let h = dt.getHours() % 12;
+        if (h === 0) h = 12;
+        const ampm = dt.getHours() >= 12 ? "pm" : "am";
+        const minute = String(dt.getMinutes()).padStart(2, "0");
+        return (day + ", " + h + ":" + minute + ampm + " " + tz).trim();
+      } catch (e) {
+        return (date + " " + time + " " + tz).trim();
+      }
+    }
+
+    function parseEmail(text) {
+      const bodyIdx = text.indexOf("<body>");
+      if (bodyIdx === -1) throw new Error("missing a <body> tag");
+      const head = text.slice(0, bodyIdx);
+      const rest = text.slice(bodyIdx + "<body>".length);
+
+      const attachIdx = rest.indexOf("<Attachments>");
+      if (attachIdx === -1) throw new Error("missing an <Attachments> tag");
+
+      let bodyAndClose = rest.slice(0, attachIdx).replace(/\s+$/, "");
+      bodyAndClose = bodyAndClose.replace(/>\/\/\s*$/, "");
+      let bodyRaw = bodyAndClose;
+      if (bodyRaw.startsWith("<")) bodyRaw = bodyRaw.slice(1);
+
+      const attachmentsRaw = rest.slice(attachIdx + "<Attachments>".length);
+      const attachments = [];
+      const are = /<([^<>]*)>/g;
+      let am;
+      while ((am = are.exec(attachmentsRaw))) {
+        if (am[1]) attachments.push(am[1]);
+      }
+
+      const fromList = addrs(head, "From");
+      const fields = {
+        from: fromList[0] || "",
+        to: addrs(head, "To").join(", "),
+        cc: addrs(head, "CC"),
+        bcc: addrs(head, "BCC"),
+      };
+
+      const dtRaw = extractField(head, "DateAndTime");
+      const dtParts = [...dtRaw.matchAll(/<([^<>]*)>/g)].map((m) => m[1]);
+      fields.date = dtParts[0] || "";
+      fields.time = dtParts[1] || "";
+      fields.tz = dtParts[2] || "";
+
+      const subjRaw = extractField(head, "Subject");
+      const sm = subjRaw.match(/^<([\s\S]*)>$/);
+      fields.subject = sm ? sm[1] : subjRaw;
+
+      const blocks = parseBody(bodyRaw);
+      return { fields, blocks, attachments };
+    }
+
+    function buildCardHtml(fields, blocks, attachments) {
+      let ccRow = "";
+      if (fields.cc.length) {
+        ccRow = '<div style="color:#888;">CC: ' + escapeHtml(fields.cc.join(", ")) + "</div>";
+      }
+      let bccRow = "";
+      if (fields.bcc.length) {
+        bccRow = '<div style="color:#888;">BCC: ' + escapeHtml(fields.bcc.join(", ")) + "</div>";
+      }
+      const bodyHtml = renderBody(blocks);
+      const attachmentsHtml = renderAttachments(attachments);
+      return (
+        '<div style="font-size:18px; line-height:1.6; margin-bottom:24px;">' +
+        '<div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">' +
+        "<span>From: " + escapeHtml(fields.from) + "</span>" +
+        "<span>" + escapeHtml(formatDateTime(fields.date, fields.time, fields.tz)) + "</span>" +
+        "</div>" +
+        "<div>To: " + escapeHtml(fields.to) + "</div>" +
+        ccRow + bccRow + "</div>" +
+        "<h2 style=\"font-family:'Helvetica Heavy','Helvetica Neue',Helvetica,Arial,sans-serif; " +
+        'font-weight:900; font-size:15pt; margin:0 0 20px 0;">' + escapeHtml(fields.subject) + "</h2>" +
+        bodyHtml + attachmentsHtml
+      );
+    }
+
+    /* ---------- wiring ---------- */
+    const cardEl = document.getElementById("liveDemoCard");
+    const textarea = document.getElementById("liveDemoSource");
+    const liveToggle = document.getElementById("liveDemoLiveToggle");
+    const publishBtn = document.getElementById("liveDemoPublish");
+    const resetBtn = document.getElementById("liveDemoReset");
+    const statusEl = document.getElementById("liveDemoStatus");
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
+
+    function renderEmail(sourceText) {
+      try {
+        const { fields, blocks, attachments } = parseEmail(sourceText);
+        cardEl.innerHTML = buildCardHtml(fields, blocks, attachments);
+        setStatus("Updated " + new Date().toLocaleTimeString());
+      } catch (err) {
+        cardEl.innerHTML = '<div class="live-demo__error">Couldn’t translate this source — ' +
+          escapeHtml(err.message) + ".</div>";
+        setStatus("Error");
+      }
+    }
+
+    let debounceTimer = null;
+    textarea.value = EXAMPLE_SOURCE;
+    renderEmail(textarea.value);
+
+    textarea.addEventListener("input", function () {
+      if (!liveToggle.checked) {
+        setStatus("Edited — click Publish to update");
+        return;
+      }
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => renderEmail(textarea.value), 250);
+    });
+
+    publishBtn.addEventListener("click", function () {
+      clearTimeout(debounceTimer);
+      renderEmail(textarea.value);
+    });
+
+    resetBtn.addEventListener("click", function () {
+      textarea.value = EXAMPLE_SOURCE;
+      renderEmail(textarea.value);
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Massimo's Great Matching Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrap">
+    <h1>Massimo's Great Matching Game</h1>
+    <h2>I should get an A because...</h2>
+
+    <div class="toolbar">
+      <div class="counter">Matched: <span id="matchCount">0</span> / 18</div>
+      <button id="newGameBtn">New Game</button>
+    </div>
+
+    <div class="board" id="board"></div>
+
+    <div class="collected">
+      <h3>Reasons I've found so far:</h3>
+      <ul id="collectedList"></ul>
+    </div>
+  </div>
+
+  <div id="winBanner" class="win-banner hidden">
+    <div class="win-inner">
+      <div class="win-title">You found every reason! 🎉</div>
+      <div class="win-sub">Now give Massimo an A.</div>
+      <button id="winCloseBtn">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

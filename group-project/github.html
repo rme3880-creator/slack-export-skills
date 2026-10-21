@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub — Massimo Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav__brand" href="index.html">massimo // dashboard</a>
+  <div class="topnav__links">
+    <a class="topnav__link" href="index.html">Home</a>
+    <a class="topnav__link is-active" href="github.html">GitHub</a>
+    <a class="topnav__link" href="gmail.html">Gmail</a>
+    <a class="topnav__link" href="calendar.html">Google Calendar</a>
+    <a class="topnav__link" href="notion.html">Notion</a>
+  </div>
+</nav>
+
+<header class="category-header">
+  <img class="category-header__icon" src="assets/img/github-icon.png" alt="">
+  <h1 class="category-header__title">GitHub</h1>
+  <p class="category-header__count" id="projectCount"></p>
+</header>
+
+<section class="project-grid" id="grid"></section>
+
+<script src="assets/js/data-github.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  (function () {
+    const projects = window.GITHUB_PROJECTS || [];
+    document.getElementById("projectCount").textContent =
+      projects.length + " project" + (projects.length === 1 ? "" : "s");
+    window.SiteGallery.renderGrid(document.getElementById("grid"), projects, {
+      landscape: false,
+      virtualW: 420,
+      virtualH: 860,
+      useScreenshot: true,
+    });
+  })();
+</script>
+
+</body>
+</html>

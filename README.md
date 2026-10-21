@@ -13,6 +13,18 @@ All data comes from a test Slack workspace ("fiction") made for this assignment.
 | `.claude/skills/slack-rtf-to-html/` | Skill: turns an exported `.rtf` into a Slack-style `.html` page |
 | `slackDownloadTemplate.rtf` | The storage format spec the export follows |
 | `Group chat.png` | The visual reference for the HTML pages |
+| `group-project/` | The rest of the group project from Massimo Bertini: the dashboard site and the GitHub, Gmail, Google Calendar and Notion exports |
+
+## Group project dashboard
+
+`group-project/` is a copy of the shared Drive folder "Project for ai course". Open `group-project/index.html` in a browser to see the dashboard, which links to one page per service:
+
+- `GitHub/`: the example repos shown on `github.html`
+- `Emails/`: Gmail messages exported with `emailDownloadTemplate.rtf`, one folder per email
+- `Calendar/`: calendar items exported with the `calendarDownloadTemplate*.rtf` templates
+- `Notion/`: Notion pages exported as `.html` and `.csv`, following `notionDownloadTemplate.csv`
+
+The service logos at the top of the folder (`Github.png`, `Gmail.png`, `Google Calendar.png`, `Notion.png`) were `.tiff` files in Drive and were converted to `.png` with no loss of quality to keep the repo small.
 
 ## Storage format
 

@@ -1,0 +1,25 @@
+ⓣ<fontname.ttf><##pts><color of text>title here,,
+ⓣ<fontname.ttf><##pts><color of text>subtitle here,,
+ⓣ<fontname.ttf><##pts><color of text>other text goes here,,
+ⓣ<fontname.ttf><##pts><color of text>if text has a line break put that new text in a new line,,
+⊕<#x#>h,,
+"ⓣ<fontname.ttf><##pts><color of text> this is row1column1 of the table as noted by the symbol in A5, in A5 is the symbol to represent start of a database, the <#x#> are the number of columns x number of rows so it would look like symbol <3x2> the h after the <#x#> notes that there is a header row and that should look different (grayed background)",ⓣ<fontname.ttf><##pts><color of text>row1column2 this holds the header row put only the title here ignore the icon,ⓣ<fontname.ttf><##pts><color of text>row1column3 also a header 
+ⓣ<fontname.ttf><##pts><color of text>row2column1,ⓣ<fontname.ttf><##pts><color of text>row2column2,ⓣ<fontname.ttf><##pts><color of text>row2column3
+,,
+ⓣ<fontname.ttf><##pts><color of text>ⓑ<color of background>if you see the symbol b in a circle that section has a background color and that  block of text should have a highlight of the specified color until ⓑappears a second time ⓑ<color of background> twice implys that the highlight is new for the new areaⓑ,,
+ⓣ<fontname.ttf><##pts><color of text> if there is the symbol and letter ☑T that represents a checked checkbox or ☑F represents an unchecked checkbox,,
+,,
+⊕<3x2>,,
+ⓣ<fontname.ttf><##pts><color of text> I want sates stored in written text,,ⓣ<fontname.ttf><##pts><color of text> if there is a blank space in a table leave a skipped section to represent that space
+,"ⓣ<fontname.ttf><##pts><color of text> October 1,2026",ⓣ<fontname.ttf><##pts><color of text> this was a 3x2 table once its filled go back to regular text
+ⓣ<fontname.ttf><##pts><color of text> if there is a link or an email symbalize that it’s a link by writing it like Ⓛ<https://example.com> and if it’s a link stored in text represent it by Ⓛ<[text its showing]https://example.com>,,
+,,
+⊕<2x1>,,
+ⓣ<fontname.ttf><##pts><color of text> this symbol now in A17shouldn’t only be used for databses but also for tables this is a 2 by 1 table with the second column blank,,
+,,
+ⓣ<fontname.ttf><##pts><color of text>subtitle here,,
+ⓣ<fontname.ttf><##pts><color of text>***all bullet points can be represented by a tripple asterix so that would mean this content is in a bullet,,
+,,
+ⓣ<fontname.ttf><##pts><color of text>if there are two parallel columns that can be noted in this format by having two columns of data,ⓣ<fontname.ttf><##pts><color of text>each column is half the page if there are two 1/3 the page of there are 3 columns etc,
+ⓣ<fontname.ttf><##pts><color of text>if there are more values in one column than the other and you want it to not take up the whole page you can put the introduction to text in the other columns to symbolize the other column,ⓣ<fontname.ttf><##pts><color of text>,
+ⓣ<fontname.ttf><##pts><color of text>,ⓣ<fontname.ttf><##pts><color of text>this text is taking up the middle 1/3 of the page,ⓣ<fontname.ttf><##pts><color of text>

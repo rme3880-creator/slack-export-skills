@@ -1,0 +1,50 @@
+ⓣ<Helvetica.ttf><24pts><#000000>Employee Onboarding Handbook
+""
+ⓣ<Helvetica.ttf><12pts><#000000>ⓑ<#FBF3DB>Welcome to the team! This handbook covers everything you need for your first 30 days. Questions? Ask in #help-onboarding.ⓑ
+""
+ⓣ<Helvetica.ttf><20pts><#000000>Our values
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>🎯 Customer obsessed,ⓣ<Helvetica-Bold.ttf><12pts><#000000>📚 Always learning
+ⓣ<Helvetica.ttf><12pts><#000000>— Start with the user's problem.,ⓣ<Helvetica.ttf><12pts><#000000>— Curiosity over certainty.
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>🤝 Default to trust,ⓣ<Helvetica-Bold.ttf><12pts><#000000>💬 Candid & kind
+"ⓣ<Helvetica.ttf><12pts><#000000>— Assume good intent, share context openly.","ⓣ<Helvetica.ttf><12pts><#000000>— Direct feedback, delivered with care."
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>⚡ Bias to action,ⓣ<Helvetica-Bold.ttf><12pts><#000000>🌱 Own the outcome
+"ⓣ<Helvetica.ttf><12pts><#000000>— Ship small, learn fast.",ⓣ<Helvetica.ttf><12pts><#000000>— Follow through end to end.
+""
+ⓣ<Helvetica.ttf><20pts><#000000>First week checklist
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Sign employment paperwork in HR portal
+"ⓣ<Helvetica.ttf><12pts><#000000>☑F Set up laptop, 1Password and 2FA"
+"ⓣ<Helvetica.ttf><12pts><#000000>☑F Join Slack channels: #general, #announcements, your team channel"
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Meet your onboarding buddy
+ⓣ<Helvetica.ttf><12pts><#000000>☑F 1:1 with your manager — set 30/60/90 goals
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Complete security awareness training
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Read the product overview and try the app as a customer
+""
+ⓣ<Helvetica.ttf><20pts><#000000>Key tools
+⊕<3x7>h
+ⓣ<Helvetica.ttf><12pts><#000000>Tool,ⓣ<Helvetica.ttf><12pts><#000000>Used for,ⓣ<Helvetica.ttf><12pts><#000000>Access via
+ⓣ<Helvetica.ttf><12pts><#000000>Slack,ⓣ<Helvetica.ttf><12pts><#000000>Day-to-day chat,ⓣ<Helvetica.ttf><12pts><#000000>SSO
+ⓣ<Helvetica.ttf><12pts><#000000>Notion,"ⓣ<Helvetica.ttf><12pts><#000000>Docs, wikis, planning",ⓣ<Helvetica.ttf><12pts><#000000>SSO
+ⓣ<Helvetica.ttf><12pts><#000000>Linear,ⓣ<Helvetica.ttf><12pts><#000000>Engineering tickets,ⓣ<Helvetica.ttf><12pts><#000000>Request in #it
+ⓣ<Helvetica.ttf><12pts><#000000>Google Workspace,"ⓣ<Helvetica.ttf><12pts><#000000>Email, calendar, Drive",ⓣ<Helvetica.ttf><12pts><#000000>Auto-provisioned
+ⓣ<Helvetica.ttf><12pts><#000000>Gusto,ⓣ<Helvetica.ttf><12pts><#000000>Payroll & benefits,ⓣ<Helvetica.ttf><12pts><#000000>Email invite
+ⓣ<Helvetica.ttf><12pts><#000000>Zoom,ⓣ<Helvetica.ttf><12pts><#000000>Meetings,ⓣ<Helvetica.ttf><12pts><#000000>SSO
+""
+ⓣ<Helvetica.ttf><20pts><#000000>Policies (FAQ)
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>What's the PTO policy?
+ⓣ<Helvetica.ttf><12pts><#000000>Flexible PTO with a 15-day recommended minimum. Log time off in Gusto and your team calendar.
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>Can I work remotely?
+ⓣ<Helvetica.ttf><12pts><#000000>Yes — we're hybrid. Office days are Tuesday and Thursday for NYC-based staff.
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>How do expenses work?
+ⓣ<Helvetica.ttf><12pts><#000000>Submit receipts in Ramp within 30 days. Pre-approval needed above $500.
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>What's the learning budget?
+"ⓣ<Helvetica.ttf><12pts><#000000>$1,500 per year for courses, books and conferences."
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>Who do I contact for IT issues?
+ⓣ<Helvetica.ttf><12pts><#000000>Post in #it or email Ⓛ<[it@company.com]mailto:it@company.com> — response within 4 business hours.
+""
+ⓣ<Helvetica.ttf><20pts><#000000>30 / 60 / 90 day milestones
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>*** 1. 30 days
+"ⓣ<Helvetica.ttf><12pts><#000000>— Understand the product, team rituals and ship a first small contribution"
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>*** 2. 60 days
+ⓣ<Helvetica.ttf><12pts><#000000>— Own a scoped project end to end
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>*** 3. 90 days
+ⓣ<Helvetica.ttf><12pts><#000000>— Contribute to planning and mentor the next new hire

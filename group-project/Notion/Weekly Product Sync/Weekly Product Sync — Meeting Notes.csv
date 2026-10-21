@@ -1,0 +1,53 @@
+ⓣ<Helvetica.ttf><24pts><#000000>Weekly Product Sync — Meeting Notes
+""
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>ⓑ<#EBECED>Date: ⓑ
+"ⓣ<Helvetica.ttf><12pts><#000000>ⓑ<#EBECED>October 15, 2026 · ⓑ"
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>ⓑ<#EBECED>Facilitator: ⓑ
+ⓣ<Helvetica.ttf><12pts><#000000>ⓑ<#EBECED>Priya (PM) · ⓑ
+ⓣ<Helvetica-Bold.ttf><12pts><#000000>ⓑ<#EBECED>Note-taker: ⓑ
+ⓣ<Helvetica.ttf><12pts><#000000>ⓑ<#EBECED>Jordanⓑ
+""
+ⓣ<Helvetica.ttf><20pts><#000000>Attendees
+ⓣ<Helvetica.ttf><12pts><#000000>*** Priya Shah — Product
+ⓣ<Helvetica.ttf><12pts><#000000>*** Jordan Kim — Engineering lead
+ⓣ<Helvetica.ttf><12pts><#000000>*** Elena Varga — Design
+ⓣ<Helvetica.ttf><12pts><#000000>*** Marcus Lee — QA
+ⓣ<Helvetica.ttf><12pts><#000000>*** Tasha Brooks — Customer Success
+ⓣ<Helvetica.ttf><12pts><#000000>*** Omar Haddad — Data
+""
+ⓣ<Helvetica.ttf><20pts><#000000>Agenda
+ⓣ<Helvetica.ttf><12pts><#000000>*** 1. Release 4.2 status
+ⓣ<Helvetica.ttf><12pts><#000000>*** 2. Bug triage (critical SSO issue)
+ⓣ<Helvetica.ttf><12pts><#000000>*** 3. Onboarding redesign review
+ⓣ<Helvetica.ttf><12pts><#000000>*** 4. Customer feedback highlights
+ⓣ<Helvetica.ttf><12pts><#000000>*** 5. Q4 metrics check-in
+""
+ⓣ<Helvetica.ttf><20pts><#000000>Discussion
+ⓣ<Helvetica-Bold.ttf><16pts><#000000>1. Release 4.2 status
+"ⓣ<Helvetica.ttf><12pts><#000000>On track for Oct 28. Two features feature-flagged off by default (bulk export, saved filters)."
+ⓣ<Helvetica-Bold.ttf><16pts><#000000>2. Bug triage
+ⓣ<Helvetica.ttf><12pts><#000000>SSO case-sensitivity bug is the only release blocker. Fix in review; Marcus to run regression on all three platforms.
+ⓣ<Helvetica-Bold.ttf><16pts><#000000>3. Onboarding redesign
+"ⓣ<Helvetica.ttf><12pts><#000000>Elena walked through new 3-step flow. Team agreed to drop the optional ""invite teammates"" step to a later prompt."
+ⓣ<Helvetica-Bold.ttf><16pts><#000000>4. Customer feedback
+"ⓣ<Helvetica-Italic.ttf><12pts><#0B6E99>Top 3 asks this month: CSV import mapping, Slack notifications, dark mode polish."
+ⓣ<Helvetica-Bold.ttf><16pts><#000000>5. Q4 metrics
+⊕<3x5>h
+ⓣ<Helvetica.ttf><12pts><#000000>Metric,ⓣ<Helvetica.ttf><12pts><#000000>Target,ⓣ<Helvetica.ttf><12pts><#000000>Current
+ⓣ<Helvetica.ttf><12pts><#000000>Weekly active users,"ⓣ<Helvetica.ttf><12pts><#000000>12,000","ⓣ<Helvetica.ttf><12pts><#000000>11,240"
+ⓣ<Helvetica.ttf><12pts><#000000>Activation rate,ⓣ<Helvetica.ttf><12pts><#000000>45%,ⓣ<Helvetica.ttf><12pts><#000000>41%
+ⓣ<Helvetica.ttf><12pts><#000000>NPS,ⓣ<Helvetica.ttf><12pts><#000000>50,ⓣ<Helvetica.ttf><12pts><#000000>53
+ⓣ<Helvetica.ttf><12pts><#000000>Support tickets / week,ⓣ<Helvetica.ttf><12pts><#000000>< 120,ⓣ<Helvetica.ttf><12pts><#000000>134
+""
+ⓣ<Helvetica.ttf><20pts><#000000>Decisions
+ⓣ<Helvetica.ttf><12pts><#000000>*** Ship 4.2 on Oct 28 if SSO fix passes regression
+"ⓣ<Helvetica.ttf><12pts><#000000>*** Move ""invite teammates"" out of onboarding"
+ⓣ<Helvetica.ttf><12pts><#000000>*** Prioritize Slack notifications for 4.3
+""
+ⓣ<Helvetica.ttf><20pts><#000000>Action items
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Jordan — merge SSO fix by Oct 20
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Marcus — cross-platform regression pass by Oct 22
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Elena — final onboarding specs to eng by Oct 21
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Tasha — email beta customers about 4.2 changes
+ⓣ<Helvetica.ttf><12pts><#000000>☑F Omar — activation funnel breakdown for next sync
+ⓣ<Helvetica.ttf><12pts><#000000>☑T Priya — update public roadmap

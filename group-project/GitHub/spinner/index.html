@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prize Wheel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Prize Wheel</h1>
+
+    <div class="setup">
+      <div class="add-row">
+        <input type="text" id="itemInput" placeholder="Enter an option" autocomplete="off">
+        <button id="addBtn">Add</button>
+      </div>
+      <ul id="itemList"></ul>
+    </div>
+
+    <div class="wheel-area">
+      <div class="pointer"></div>
+      <canvas id="wheelCanvas" width="440" height="440"></canvas>
+    </div>
+
+    <button id="spinBtn" disabled>Spin</button>
+    <p id="statusMsg">Add at least 2 options to spin</p>
+
+    <div class="winner-banner" id="winnerBanner" hidden>
+      <p>🎉 Winner: <span id="winnerName"></span> 🎉</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

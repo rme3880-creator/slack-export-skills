@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magic 8 Ball</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrap">
+    <h1>🎱 Magic 8 Ball</h1>
+
+    <div id="askScreen" class="ask-screen">
+      <p class="prompt-text">Ask a yes or no question...</p>
+      <input id="questionInput" type="text" placeholder="Will I win the lottery?" autocomplete="off" maxlength="120">
+      <button id="askBtn">Ask the Ball</button>
+    </div>
+
+    <div id="ballScreen" class="ball-screen hidden">
+      <p class="question-display" id="questionDisplay"></p>
+
+      <div class="ball-stage">
+        <div id="ball" class="ball">
+          <div class="ball-dot">8</div>
+          <div class="window">
+            <div class="triangle">
+              <span id="answerText" class="answer-text"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="hint" id="hint">Click the ball to get your answer</p>
+
+      <button id="newQuestionBtn" class="new-question">Ask a New Question</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

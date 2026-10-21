@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paperclip Counter</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrap">
+    <h1>📎 Paperclip Counter</h1>
+    <p class="sub">Drag paperclips from the pile into the bag.</p>
+
+    <div class="toolbar">
+      <div class="counter">Paperclips in bag: <span id="count">0</span></div>
+      <button id="resetBtn">Reset</button>
+    </div>
+
+    <div class="game-area">
+      <div class="pile" id="pile">
+        <div class="pile-label">The Pile</div>
+      </div>
+
+      <div class="bag" id="bag">
+        <div class="bag-emoji">🛍️</div>
+        <div class="bag-label">The Bag</div>
+        <div class="bag-collected" id="bagCollected"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

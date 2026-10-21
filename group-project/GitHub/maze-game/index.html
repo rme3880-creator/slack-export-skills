@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don't Touch The Walls</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <h1>DON'T TOUCH THE WALLS</h1>
+    <p class="sub">Guide your cursor from <span class="green">START</span> to <span class="red">FINISH</span> without leaving the path. One slip and it's over.</p>
+
+    <div class="stage">
+      <canvas id="maze" width="800" height="500"></canvas>
+      <button id="startBtn">START</button>
+    </div>
+
+    <p class="status" id="status">Click START to begin.</p>
+  </div>
+
+  <div id="popup" class="popup hidden">
+    <div class="popup-inner">
+      <div class="popup-message">Give Massimo an A pweese 🥺 👉 👈</div>
+      <button id="retryBtn">Try Again</button>
+    </div>
+  </div>
+
+  <div id="winPopup" class="popup hidden">
+    <div class="popup-inner win">
+      <div class="popup-message">You made it! 🎉</div>
+      <button id="winRetryBtn">Play Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

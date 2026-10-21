@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Calendar — Massimo Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .live-demo {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 32px 100px;
+    border-top: 1px solid var(--border);
+  }
+  .live-demo__intro h2 {
+    font-size: clamp(22px, 3vw, 30px);
+    color: var(--white);
+    margin: 40px 0 8px;
+  }
+  .live-demo__intro p {
+    color: var(--text-dim);
+    font-size: 14px;
+    max-width: 760px;
+    line-height: 1.6;
+    margin: 0 0 20px;
+  }
+  .live-demo__intro code {
+    font-family: var(--mono);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  .live-demo__template-switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 28px;
+  }
+  .live-demo__template-btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 9px 20px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .live-demo__template-btn:hover {
+    color: var(--text);
+    border-color: var(--green-dim);
+  }
+  .live-demo__template-btn.is-active {
+    background: var(--green);
+    color: #0c1710;
+    border-color: var(--green);
+  }
+  .live-demo__split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) {
+    .live-demo__split { grid-template-columns: 1fr; }
+  }
+  .live-demo__pane {
+    display: flex;
+    flex-direction: column;
+    min-height: 560px;
+  }
+  .live-demo__pane-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .live-demo__live-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--sans);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .live-demo__card-backdrop {
+    flex: 1;
+    background: #0c0e13;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 32px 20px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+  }
+  .live-demo__card-shell {
+    width: 100%;
+    max-width: 720px;
+  }
+  .live-demo__textarea {
+    flex: 1;
+    width: 100%;
+    resize: vertical;
+    min-height: 420px;
+    background: #0c0e13;
+    color: #d9ffe4;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    box-sizing: border-box;
+  }
+  .live-demo__textarea:focus {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+  }
+  .live-demo__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .live-demo__btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 9px 20px;
+    cursor: pointer;
+    transition: border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .live-demo__btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .live-demo__btn--primary {
+    background: var(--green);
+    color: #0c1710;
+    border-color: var(--green);
+  }
+  .live-demo__btn--primary:hover {
+    background: var(--green-dim);
+    color: #0c1710;
+  }
+  .live-demo__status {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .live-demo__error {
+    color: #ff8686;
+    font-family: var(--mono);
+    font-size: 13px;
+    white-space: pre-wrap;
+  }
+
+  /* ---- ported calendar-card look, from show-calendar-event's build_calendar_html.py ---- */
+  .calendar-card {
+    width: 100%;
+    border-radius: 28px;
+    box-shadow: 0 10px 34px rgba(20, 20, 30, 0.16);
+    overflow: visible;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .calendar-card__banner {
+    border-radius: 28px 28px 0 0;
+    padding: 30px 28px 26px;
+    text-align: center;
+    color: #fff;
+    box-sizing: border-box;
+  }
+  .calendar-card__banner .weekday,
+  .calendar-card__banner .date {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.18;
+    margin: 0;
+  }
+  .calendar-card__banner .title {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 6px 0;
+  }
+  .calendar-card__body {
+    border-radius: 0 0 28px 28px;
+    background: #fff;
+    padding: 26px 28px 6px;
+    box-sizing: border-box;
+  }
+  .calendar-card__title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111113;
+    margin: 0 0 8px;
+    line-height: 1.22;
+  }
+  .calendar-card__footer {
+    text-align: center;
+    color: #c3c3c8;
+    font-size: 15px;
+    padding: 18px 28px 26px;
+  }
+  .event-meta {
+    font-size: 17px;
+    color: #9a9aa0;
+    margin: 0 0 14px;
+  }
+  .event-meta .alert {
+    color: #c3c3c8;
+    margin-left: 8px;
+  }
+  .event-subtitle {
+    font-size: 18px;
+    color: #1c1c1e;
+    line-height: 1.4;
+    margin: 0 0 12px;
+  }
+  .event-location {
+    font-size: 15px;
+    color: #9a9aa0;
+    margin: 0 0 6px;
+  }
+  .task-repeat {
+    font-size: 16px;
+    color: #9a9aa0;
+    margin: 0 0 16px;
+  }
+  .task-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 10px;
+  }
+  .task-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    font-size: 18px;
+    color: #1c1c1e;
+    padding: 6px 0;
+    line-height: 1.35;
+  }
+  .task-bullet {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #c3c3c8;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    margin-top: 5px;
+  }
+  .task-list .task-principal .task-subtitle {
+    color: #9a9aa0;
+    font-weight: 400;
+    margin-left: 6px;
+  }
+  .schedule-range {
+    display: flex;
+    justify-content: space-between;
+    padding: 22px 28px 2px;
+    font-size: 14px;
+    font-weight: 500;
+    box-sizing: border-box;
+  }
+  .schedule-grid-wrap {
+    display: flex;
+    align-items: flex-start;
+    padding: 0 28px 4px;
+    box-sizing: border-box;
+  }
+  .schedule-hours {
+    flex: 0 0 auto;
+    width: 46px;
+    padding-right: 8px;
+    box-sizing: border-box;
+  }
+  .schedule-hour {
+    height: 64px;
+    font-size: 13px;
+    font-weight: 500;
+    padding-top: 2px;
+    text-align: right;
+    box-sizing: border-box;
+  }
+  .schedule-grid {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: repeat(var(--days), 1fr);
+    grid-auto-rows: 64px;
+    border-top: var(--grid-border-width) solid var(--grid-border-color);
+    border-left: var(--grid-border-width) solid var(--grid-border-color);
+  }
+  .schedule-cell {
+    border-right: var(--grid-border-width) solid var(--grid-border-color);
+    border-bottom: var(--grid-border-width) solid var(--grid-border-color);
+    min-height: 64px;
+    position: relative;
+  }
+  .booking {
+    position: absolute;
+    inset: 2px;
+    border-radius: 10px;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: default;
+    z-index: 1;
+  }
+  .booking__name {
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .booking__service {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-top: 2px;
+  }
+  .booking__details {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-top: -10px;
+    padding: 14px 9px 10px;
+    border-radius: 0 0 10px 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 0.12s ease, transform 0.12s ease;
+    z-index: 2;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  }
+  .booking:hover {
+    z-index: 10;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  }
+  .booking:hover .booking__details {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .booking__notes {
+    margin-bottom: 6px;
+  }
+  .booking__contact {
+    opacity: 0.92;
+  }
+  .booking__alert {
+    margin-top: 6px;
+    opacity: 0.92;
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav__brand" href="index.html">massimo // dashboard</a>
+  <div class="topnav__links">
+    <a class="topnav__link" href="index.html">Home</a>
+    <a class="topnav__link" href="github.html">GitHub</a>
+    <a class="topnav__link" href="gmail.html">Gmail</a>
+    <a class="topnav__link is-active" href="calendar.html">Google Calendar</a>
+    <a class="topnav__link" href="notion.html">Notion</a>
+  </div>
+</nav>
+
+<header class="category-header">
+  <img class="category-header__icon" src="assets/img/calendar-icon.png" alt="">
+  <h1 class="category-header__title">Google Calendar</h1>
+  <p class="category-header__count" id="projectCount"></p>
+</header>
+
+<section class="project-grid" id="grid"></section>
+
+<script src="assets/js/data-calendar.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  (function () {
+    const projects = window.CALENDAR_PROJECTS || [];
+    document.getElementById("projectCount").textContent =
+      projects.length + " event" + (projects.length === 1 ? "" : "s");
+    window.SiteGallery.renderGrid(document.getElementById("grid"), projects, {
+      landscape: false,
+      virtualW: 480,
+      virtualH: 900,
+    });
+  })();
+</script>
+
+<section class="live-demo" id="liveDemo">
+  <div class="live-demo__intro">
+    <h2>Live Translation Demo</h2>
+    <p>
+      This is the same translation the <code>download-calendar-event</code> skill performs: a Task, Event,
+      or Appointment schedule gets tagged with a small set of markers (<code>&lt;eventKind&gt;</code>,
+      <code>&lt;eventTitle&gt;</code>, <code>&lt;eventDate&gt;</code>, etc. — see the
+      <code>calendarDownloadTemplate*.rtf</code> files) and saved as an exportable file. Pick a template, edit
+      the tagged source on the right, and watch it translate into the rendered card on the left — live or on demand.
+    </p>
+    <div class="live-demo__template-switch" role="tablist">
+      <button type="button" class="live-demo__template-btn is-active" data-template="task">Task</button>
+      <button type="button" class="live-demo__template-btn" data-template="event">Event</button>
+      <button type="button" class="live-demo__template-btn" data-template="appointment">Appointment schedule</button>
+    </div>
+  </div>
+  <div class="live-demo__split">
+    <div class="live-demo__pane live-demo__pane--output">
+      <div class="live-demo__pane-label">Output</div>
+      <div class="live-demo__card-backdrop">
+        <div class="live-demo__card-shell" id="liveDemoCard"></div>
+      </div>
+    </div>
+    <div class="live-demo__pane live-demo__pane--editor">
+      <div class="live-demo__pane-label">
+        Editable source
+        <label class="live-demo__live-toggle">
+          <input type="checkbox" id="liveDemoLiveToggle" checked>
+          Live update
+        </label>
+      </div>
+      <textarea id="liveDemoSource" class="live-demo__textarea" spellcheck="false" autocomplete="off"></textarea>
+      <div class="live-demo__controls">
+        <button type="button" id="liveDemoPublish" class="live-demo__btn live-demo__btn--primary">Publish</button>
+        <button type="button" id="liveDemoReset" class="live-demo__btn">Reset to example</button>
+        <span class="live-demo__status" id="liveDemoStatus"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    "use strict";
+
+    /* ---------- the three starting documents, in the download-calendar-event tagging syntax ---------- */
+    const TEMPLATES = {
+      task: `<calendar>Tasks
+<calendarColor>#4285F4
+<eventKind>Task
+<eventTitle>Sunday Tasks
+<eventDate>10/18/2026
+<eventTime>AllDay
+<repeat>Weekly on Sunday
+<eventSubtitle>Weekly reset & prep. Deadline: Tuesday (2 days later).
+<contents
+<Tasks
+<PrincipalTask>Sunday Tasks
+<subTask>1. Meal prep for the week
+<subTask>2. Grocery shopping
+<subTask>3. Do laundry
+<subTask>4. Review and plan weekly calendar
+<subTask>5. Tidy up the apartmentMeal prep for the week
+>
+>`,
+      event: `<calendar>Birthdays
+<calendarColor>#8E24AA
+<eventKind>Event
+<eventTitle>Jason Kim's Birthday Party
+<eventDate>10/29/2026
+<eventTime>7pm-10pm
+<eventSubtitle>Celebrating Jason's birthday with games, arcade tokens, and dinner. Come ready to have fun!
+<alert>10 minutes before
+<location>Dave & Buster's Times Square, 234 W 42nd St, New York, NY 10036`,
+      appointment: `<calendar>Bookings
+<calendarColor>#F6BF26
+<eventKind>Appointment schedule
+<eventTitle>Book Me
+<eventDate>10/19/2026-10/23/2026
+<eventTime>9am-4pm
+<eventSubtitle>Bookable appointments
+<contents
+<bookBlock
+<bookedDate>Monday, October 19
+<bookedTime>10am
+<bookedBy
+<Name>Alex Morgan
+<email>alex.morgan@example.com
+<phone>(212) 555-0148
+>
+<service>30-min strategy consultation
+<notes>First-time client, wants to discuss Q4 marketing plan.
+<location>meet.google.com/tcy-anst-rtd
+<alert>30 minutes before
+>
+<bookBlock
+<bookedDate>Tuesday, October 20
+<bookedTime>1pm
+<bookedBy
+<Name>Priya Patel
+<email>priya.patel@example.com
+<phone>(646) 555-0172
+>
+<service>45-min portfolio review
+<notes>Returning client, reviewing updated investment portfolio.
+<location>meet.google.com/ccq-zhdx-ixb
+<alert>30 minutes before
+>
+<bookBlock
+<bookedDate>Wednesday, October 21
+<bookedTime>9am
+<bookedBy
+<Name>Marcus Webb
+<email>marcus.webb@example.com
+<phone>(917) 555-0119
+>
+<service>30-min introductory call
+<notes>Prospective client, exploring consulting packages.
+<location>meet.google.com/ehu-asoo-hhu
+<alert>30 minutes before
+>
+<bookBlock
+<bookedDate>Wednesday, October 21
+<bookedTime>3pm
+<bookedBy
+<Name>Dana Lee
+<email>dana.lee@example.com
+<phone>(718) 555-0133
+>
+<service>30-min follow-up consultation
+<notes>Reviewing progress since last session, adjusting action plan.
+<location>meet.google.com/stn-nguv-pcd
+<alert>30 minutes before
+>
+<bookBlock
+<bookedDate>Thursday, October 22
+<bookedTime>11am
+<bookedBy
+<Name>Tom Nguyen
+<email>tom.nguyen@example.com
+<phone>(347) 555-0186
+>
+<service>30-min resume review
+<notes>Preparing resume for upcoming job search, targeting tech roles.
+<location>meet.google.com/uwt-jaxq-yva
+<alert>30 minutes before
+>
+<bookBlock
+<bookedDate>Friday, October 23
+<bookedTime>2pm
+<bookedBy
+<Name>Sofia Martinez
+<email>sofia.martinez@example.com
+<phone>(929) 555-0154
+>
+<service>45-min career coaching session
+<notes>Discussing career transition plan and upcoming interview prep.
+<location>meet.google.com/osc-rnto-qut
+<alert>30 minutes before
+>
+>`,
+    };
+
+    /* ---------- syntax (mirrors show-calendar-event's parse_calendar_rtf.py + build_calendar_html.py) ----------
+       Every non-empty line is either a tag "<Name>value" or a bare structural
+       marker ("<contents", "<Tasks", "<bookBlock", "<bookedBy", or the closing ">").
+       <eventKind> picks which of the three shapes (Task / Event / Appointment
+       schedule) the rest of the document follows.
+    */
+    const TAG_RE = /^<([A-Za-z]+)>(.*)$/;
+
+    const MONTHS = { january: 1, february: 2, march: 3, april: 4, may: 5, june: 6, july: 7,
+      august: 8, september: 9, october: 10, november: 11, december: 12 };
+    const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July",
+      "August", "September", "October", "November", "December"];
+    const WEEKDAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    /* ---- color math ---- */
+    function hexToRgb(hex) {
+      const h = hex.replace(/^#/, "");
+      return [0, 2, 4].map((i) => parseInt(h.substr(i, 2), 16));
+    }
+    function rgbToHex(rgb) {
+      return "#" + rgb.map((c) => Math.max(0, Math.min(255, Math.round(c))).toString(16).padStart(2, "0")).join("");
+    }
+    function mix(hexA, hexB, t) {
+      const a = hexToRgb(hexA), b = hexToRgb(hexB);
+      return rgbToHex(a.map((v, i) => v + (b[i] - v) * t));
+    }
+    function lighten(hex, amount) {
+      return mix(hex, "#ffffff", amount === undefined ? 0.35 : amount);
+    }
+    function bannerGradientCss(hex) {
+      const light = lighten(hex, 0.38);
+      const midpoint = mix(hex, light, 0.5);
+      return "linear-gradient(to bottom, " + hex + " 0%, " + midpoint + " 67%, " + light + " 100%)";
+    }
+    function readableTextColor(hex) {
+      const [r, g, b] = hexToRgb(hex);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      return luminance > 0.72 ? "#1c1c1e" : "#ffffff";
+    }
+
+    function shortenAlert(alert) {
+      if (!alert || alert.trim().toLowerCase() === "none") return null;
+      return alert.trim().replace(/\bminutes?\b/gi, "min");
+    }
+
+    /* ---- dates ---- */
+    function parseMdy(s) {
+      const [m, d, y] = s.trim().split("/").map(Number);
+      return new Date(y, m - 1, d);
+    }
+    function parseEventDate(eventDate) {
+      const parts = eventDate.split("-");
+      const start = parseMdy(parts[0]);
+      const end = parts.length > 1 ? parseMdy(parts[1]) : null;
+      return [start, end];
+    }
+    function daysBetween(a, b) {
+      return Math.round((b - a) / 86400000);
+    }
+    function parseHourLabel(label) {
+      const m = /^\s*(\d+)(?::\d+)?\s*([ap]m)\s*$/i.exec(label);
+      if (!m) throw new Error("can't parse hour label: " + JSON.stringify(label));
+      let hour = parseInt(m[1], 10) % 12;
+      if (m[2].toLowerCase() === "pm") hour += 12;
+      return hour;
+    }
+    function formatHourLabel(hour24) {
+      let h = hour24 % 12;
+      h = h === 0 ? 12 : h;
+      const suffix = hour24 < 12 ? "am" : "pm";
+      return h + suffix;
+    }
+    function weekdayMonthDayYear(date) {
+      return [WEEKDAY_NAMES[date.getDay()], MONTH_NAMES[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()];
+    }
+    function monthDayLower(date) {
+      return (MONTH_NAMES[date.getMonth()].slice(0, 3) + " " + date.getDate()).toLowerCase();
+    }
+    function parseBookedDate(bookedDate, year) {
+      const m = /([A-Za-z]+)\s+(\d{1,2})\s*$/.exec(bookedDate);
+      if (!m) throw new Error("can't parse booked date: " + JSON.stringify(bookedDate));
+      const month = MONTHS[m[1].toLowerCase()];
+      if (!month) throw new Error("unknown month in booked date: " + JSON.stringify(bookedDate));
+      return new Date(year, month - 1, parseInt(m[2], 10));
+    }
+
+    /* ---- parser (mirrors parse_calendar_rtf.py's Parser/parse()) ---- */
+    function parseCalendarText(text) {
+      const lines = text.split(/\r?\n/).map((l) => l.replace(/\r$/, "")).filter((l) => l.trim() !== "");
+      let i = 0;
+      function peek() { return i < lines.length ? lines[i] : null; }
+      function nextLine() {
+        if (i >= lines.length) throw new Error("unexpected end of input");
+        return lines[i++];
+      }
+      function expectTag(name) {
+        const line = nextLine();
+        const m = TAG_RE.exec(line);
+        if (!m || m[1] !== name) throw new Error("expected <" + name + ">..., got " + JSON.stringify(line));
+        return m[2];
+      }
+      function expectRaw(expected) {
+        const line = nextLine();
+        if (line !== expected) throw new Error("expected " + JSON.stringify(expected) + ", got " + JSON.stringify(line));
+      }
+      function peekTagName() {
+        const line = peek();
+        if (line === null) return null;
+        const m = TAG_RE.exec(line);
+        return m ? m[1] : null;
+      }
+
+      const data = {
+        calendar: expectTag("calendar"),
+        calendarColor: expectTag("calendarColor"),
+        eventKind: expectTag("eventKind"),
+        eventTitle: expectTag("eventTitle"),
+        eventDate: expectTag("eventDate"),
+        eventTime: expectTag("eventTime"),
+      };
+
+      const kind = data.eventKind;
+
+      if (kind === "Event") {
+        data.eventSubtitle = expectTag("eventSubtitle");
+        data.alert = expectTag("alert");
+        data.location = expectTag("location");
+      } else if (kind === "Task") {
+        if (peekTagName() === "repeat") data.repeat = expectTag("repeat");
+        data.eventSubtitle = expectTag("eventSubtitle");
+        expectRaw("<contents");
+        expectRaw("<Tasks");
+        data.principalTask = expectTag("PrincipalTask");
+        const subTasks = [];
+        while (peekTagName() === "subTask") subTasks.push(expectTag("subTask"));
+        data.subTasks = subTasks;
+        expectRaw(">");
+        expectRaw(">");
+      } else if (kind === "Appointment schedule") {
+        data.eventSubtitle = expectTag("eventSubtitle");
+        expectRaw("<contents");
+        const bookings = [];
+        while (peek() === "<bookBlock") {
+          expectRaw("<bookBlock");
+          const booking = { bookedDate: expectTag("bookedDate"), bookedTime: expectTag("bookedTime") };
+          expectRaw("<bookedBy");
+          booking.name = expectTag("Name");
+          booking.email = expectTag("email");
+          booking.phone = expectTag("phone");
+          expectRaw(">");
+          booking.service = expectTag("service");
+          booking.notes = expectTag("notes");
+          booking.location = expectTag("location");
+          booking.alert = expectTag("alert");
+          expectRaw(">");
+          bookings.push(booking);
+        }
+        expectRaw(">");
+        data.bookings = bookings;
+      } else {
+        throw new Error("unknown eventKind: " + JSON.stringify(kind));
+      }
+
+      return data;
+    }
+
+    /* ---- renderers (mirror build_calendar_html.py's render_event/render_task/render_appointment) ---- */
+    function renderEvent(data) {
+      const color = data.calendarColor;
+      const textColor = readableTextColor(color);
+      const [dateObj] = parseEventDate(data.eventDate);
+      const [weekday, monthDayYear] = weekdayMonthDayYear(dateObj);
+      let alertHtml = "";
+      const alert = shortenAlert(data.alert);
+      if (alert) alertHtml = '<span class="alert">(notify ' + escapeHtml(alert) + ")</span>";
+      return (
+        '<div class="calendar-card calendar-card--event">' +
+        '<div class="calendar-card__banner" style="background:' + bannerGradientCss(color) + "; color:" + textColor + ';">' +
+        '<p class="weekday">' + escapeHtml(weekday) + "</p>" +
+        '<p class="date">' + escapeHtml(monthDayYear) + "</p>" +
+        "</div>" +
+        '<div class="calendar-card__body">' +
+        '<h1 class="calendar-card__title">' + escapeHtml(data.eventTitle) + "</h1>" +
+        '<p class="event-meta">' + escapeHtml(data.eventTime) + " " + alertHtml + "</p>" +
+        '<p class="event-subtitle">' + escapeHtml(data.eventSubtitle) + "</p>" +
+        '<p class="event-location">Location: ' + escapeHtml(data.location) + "</p>" +
+        "</div>" +
+        '<div class="calendar-card__footer">Calendar: ' + escapeHtml(data.calendar) + "</div>" +
+        "</div>"
+      );
+    }
+
+    function renderTask(data) {
+      const color = data.calendarColor;
+      const textColor = readableTextColor(color);
+      const [dateObj] = parseEventDate(data.eventDate);
+      const [weekday, monthDayYear] = weekdayMonthDayYear(dateObj);
+      let repeatHtml = "";
+      if (data.repeat) repeatHtml = '<p class="task-repeat">Repeats ' + escapeHtml(data.repeat) + "</p>";
+      const items = [];
+      items.push(
+        '<li class="task-principal"><span class="task-bullet"></span><span><strong>' +
+          escapeHtml(data.principalTask) + '</strong> <span class="task-subtitle">' +
+          escapeHtml(data.eventSubtitle) + "</span></span></li>"
+      );
+      (data.subTasks || []).forEach((sub) => {
+        items.push('<li><span class="task-bullet"></span><span>' + escapeHtml(sub) + "</span></li>");
+      });
+      return (
+        '<div class="calendar-card calendar-card--task">' +
+        '<div class="calendar-card__banner" style="background:' + bannerGradientCss(color) + "; color:" + textColor + ';">' +
+        '<p class="weekday">' + escapeHtml(weekday) + "</p>" +
+        '<p class="date">' + escapeHtml(monthDayYear) + "</p>" +
+        "</div>" +
+        '<div class="calendar-card__body">' +
+        '<h1 class="calendar-card__title">' + escapeHtml(data.eventTitle) + "</h1>" +
+        repeatHtml +
+        '<ul class="task-list">' + items.join("") + "</ul>" +
+        "</div>" +
+        '<div class="calendar-card__footer">Calendar: ' + escapeHtml(data.calendar) + "</div>" +
+        "</div>"
+      );
+    }
+
+    function renderAppointment(data) {
+      const color = data.calendarColor;
+      const textColor = readableTextColor(color);
+      const headerTextColor = "#ffffff";
+      let [startDate, endDate] = parseEventDate(data.eventDate);
+      if (!endDate) endDate = startDate;
+      const numDays = daysBetween(startDate, endDate) + 1;
+      const startHour = parseHourLabel(data.eventTime.split("-")[0].trim());
+      const numRows = 8;
+      const hourLabels = [];
+      for (let r = 0; r < numRows; r++) hourLabels.push(formatHourLabel(startHour + r));
+
+      const slots = {};
+      for (let d = 0; d < numDays; d++) for (let r = 0; r < numRows; r++) slots[d + "_" + r] = [];
+
+      (data.bookings || []).forEach((booking) => {
+        const bDate = parseBookedDate(booking.bookedDate, startDate.getFullYear());
+        const dayIdx = daysBetween(startDate, bDate);
+        const hourIdx = parseHourLabel(booking.bookedTime) - startHour;
+        if (dayIdx >= 0 && dayIdx < numDays && hourIdx >= 0 && hourIdx < numRows) {
+          slots[dayIdx + "_" + hourIdx].push(booking);
+        }
+      });
+
+      const bookingBg = color;
+      const detailsBg = lighten(color, 0.22);
+
+      let hoursHtml = "", cellsHtml = "";
+      for (let r = 0; r < numRows; r++) {
+        hoursHtml += '<div class="schedule-hour" style="color:' + color + ';">' + escapeHtml(hourLabels[r]) + "</div>";
+        for (let d = 0; d < numDays; d++) {
+          const bookingsHere = slots[d + "_" + r];
+          let inner = "";
+          bookingsHere.forEach((booking) => {
+            const alert = shortenAlert(booking.alert);
+            const alertHtml = alert ? '<div class="booking__alert">\u{1F514} ' + escapeHtml(alert) + "</div>" : "";
+            inner +=
+              '<div class="booking" style="background:' + bookingBg + "; color:" + textColor + ';">' +
+              '<div class="booking__name">' + escapeHtml(booking.name) + "</div>" +
+              '<div class="booking__service">' + escapeHtml(booking.service) + "</div>" +
+              '<div class="booking__details" style="background:' + detailsBg + "; color:" + textColor + ';">' +
+              '<div class="booking__notes">' + escapeHtml(booking.notes) + "</div>" +
+              '<div class="booking__contact">' + escapeHtml(booking.email) + "<br>" + escapeHtml(booking.phone) + "</div>" +
+              alertHtml +
+              "</div></div>";
+          });
+          cellsHtml += '<div class="schedule-cell">' + inner + "</div>";
+        }
+      }
+
+      return (
+        '<div class="calendar-card calendar-card--appointment">' +
+        '<div class="calendar-card__banner" style="background:' + bannerGradientCss(color) + "; color:" + headerTextColor + ';">' +
+        '<p class="title">' + escapeHtml(data.eventTitle) + "</p>" +
+        "</div>" +
+        '<div class="calendar-card__body" style="padding-left:0; padding-right:0;">' +
+        '<div class="schedule-range" style="color:' + color + ';">' +
+        "<span>" + escapeHtml(monthDayLower(startDate)) + "</span>" +
+        "<span>" + escapeHtml(monthDayLower(endDate)) + "</span>" +
+        "</div>" +
+        '<div class="schedule-grid-wrap">' +
+        '<div class="schedule-hours">' + hoursHtml + "</div>" +
+        '<div class="schedule-grid" style="--days:' + numDays + "; --grid-border-color:" + color + "; --grid-border-width:1.5px;\">" +
+        cellsHtml + "</div>" +
+        "</div></div>" +
+        '<div class="calendar-card__footer">Calendar: ' + escapeHtml(data.calendar) + "</div>" +
+        "</div>"
+      );
+    }
+
+    const RENDERERS = { Event: renderEvent, Task: renderTask, "Appointment schedule": renderAppointment };
+
+    function renderCalendarCard(sourceText) {
+      const data = parseCalendarText(sourceText);
+      const renderer = RENDERERS[data.eventKind];
+      if (!renderer) throw new Error("unknown eventKind: " + JSON.stringify(data.eventKind));
+      return renderer(data);
+    }
+
+    /* ---------- wiring ---------- */
+    const cardEl = document.getElementById("liveDemoCard");
+    const textarea = document.getElementById("liveDemoSource");
+    const liveToggle = document.getElementById("liveDemoLiveToggle");
+    const publishBtn = document.getElementById("liveDemoPublish");
+    const resetBtn = document.getElementById("liveDemoReset");
+    const statusEl = document.getElementById("liveDemoStatus");
+    const templateBtns = Array.prototype.slice.call(document.querySelectorAll(".live-demo__template-btn"));
+
+    let activeTemplate = "task";
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
+
+    function renderCalendar(sourceText) {
+      try {
+        cardEl.innerHTML = renderCalendarCard(sourceText);
+        setStatus("Updated " + new Date().toLocaleTimeString());
+      } catch (err) {
+        cardEl.innerHTML = '<div class="live-demo__error">Couldn’t translate this source — ' +
+          escapeHtml(err.message) + ".</div>";
+        setStatus("Error");
+      }
+    }
+
+    let debounceTimer = null;
+    textarea.value = TEMPLATES[activeTemplate];
+    renderCalendar(textarea.value);
+
+    textarea.addEventListener("input", function () {
+      if (!liveToggle.checked) {
+        setStatus("Edited — click Publish to update");
+        return;
+      }
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => renderCalendar(textarea.value), 250);
+    });
+
+    publishBtn.addEventListener("click", function () {
+      clearTimeout(debounceTimer);
+      renderCalendar(textarea.value);
+    });
+
+    resetBtn.addEventListener("click", function () {
+      textarea.value = TEMPLATES[activeTemplate];
+      renderCalendar(textarea.value);
+    });
+
+    templateBtns.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        activeTemplate = btn.dataset.template;
+        templateBtns.forEach((b) => b.classList.toggle("is-active", b === btn));
+        textarea.value = TEMPLATES[activeTemplate];
+        renderCalendar(textarea.value);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
