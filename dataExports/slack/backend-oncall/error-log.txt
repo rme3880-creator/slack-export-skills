@@ -1,0 +1,7 @@
+2026-10-16T02:13:41Z ERROR checkout-api pod=checkout-api-7f9c4 msg="db pool exhausted" active=50 idle=0 waiting=212
+2026-10-16T02:13:42Z ERROR checkout-api pod=checkout-api-7f9c4 msg="request timeout" route=POST /v2/orders latency_ms=30001
+2026-10-16T02:13:42Z ERROR checkout-api pod=checkout-api-2b81d msg="db pool exhausted" active=50 idle=0 waiting=187
+2026-10-16T02:13:44Z WARN  payments-worker msg="retrying charge" attempt=3 order_id=ord_88213
+2026-10-16T02:13:47Z ERROR checkout-api pod=checkout-api-2b81d msg="request timeout" route=POST /v2/orders latency_ms=30000
+2026-10-16T02:13:51Z INFO  deploy-bot msg="release v4.18.0 rolled out 100%" started=2026-10-16T01:58:10Z
+2026-10-16T02:14:02Z ERROR checkout-api pod=checkout-api-91aa0 msg="slow query" ms=8412 query="SELECT * FROM order_items WHERE cart_id = $1"

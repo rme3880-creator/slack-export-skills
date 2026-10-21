@@ -1,0 +1,9 @@
+# Word / Office lock files
+~$*
+
+# Windows clutter
+Thumbs.db
+desktop.ini
+
+# Leftover from moving exports into dataExports/slack (file was open in Word)
+/nouveau-canal/
